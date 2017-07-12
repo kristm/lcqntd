@@ -1,5 +1,13 @@
-pub fn parse_line(line: String) -> String {
-    println!("nothing to see here {}", line);
-    line.to_string()
+use regex::Regex;
+use regex::Captures;
+// 
+// enum Subs {
+//     Dialogue(String)
+// }
+
+pub fn parse_line(line: &str) -> Captures {
+    let re = Regex::new(r"Default,,[\d,]{3},(?P<dialogue>[^{}]*)$").unwrap();
+    let captures = re.captures(line).unwrap();
+    captures
 }
 
