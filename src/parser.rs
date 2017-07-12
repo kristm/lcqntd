@@ -6,7 +6,7 @@ use regex::Captures;
 // }
 
 pub fn parse_line(line: &str) -> Captures {
-    let re = Regex::new(r"Default,,[\d,]{3},(?P<dialogue>[^{}]*)$").unwrap();
+    let re = Regex::new(r"Default,,[\d,]+(?P<dialogue>[^{}]*)$").unwrap();
     let captures = re.captures(line).unwrap();
     captures
 }
