@@ -2,12 +2,10 @@ use regex::Regex;
 use regex::Captures;
 // 
 // enum Subs {
-//     Dialogue(String)
-// }
 
 pub fn parse_line(line: &str) -> Captures {
-    let re = Regex::new(r"Default,,[\d,]+(?P<dialogue>[^{}]*)$").unwrap();
+    //"((?:\d\d?:){2}\d{2}\.\d{2}),((?:\d\d?:){2}\d{2}\.\d{2}),Default[\d\,]+(?:\{\\?([a-z\d\\]*(?:\([0-9\,\-]*\))?)?\})?([^\{\}]*)$"
+    let re = Regex::new(r"(?P<starttime>(\d\d?:){2}\d{2}\.\d{2}),(?P<endtime>(\d\d?:){2}\d{2}\.\d{2}),Default,,[\d,]+(\{\\?([a-z\d\\]*(\([0-9,-]*\))?)?\})?(?P<dialogue>[^\{\}]*)$").unwrap();
     let captures = re.captures(line).unwrap();
     captures
 }
-
