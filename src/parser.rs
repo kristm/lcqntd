@@ -1,10 +1,12 @@
 use regex::Regex;
 use regex::Captures;
-// 
-// enum Subs {
 
-pub fn parse_line(line: &str) -> Captures {
+pub fn parse_line(line: &str) -> Result<Captures, &str> {
     let re = Regex::new(r"(?P<starttime>(?:\d\d?:){2}\d{2}\.\d{2}),(?P<endtime>(?:\d\d?:){2}\d{2}\.\d{2}),Default,,[\d,]+(?P<formatting>\{\\?(?:[a-z\d\\]*(?:\([0-9,-]*\))?)?\})?(?P<dialogue>[^\{\}]*)$").unwrap();
-    let captures = re.captures(line).unwrap();
-    captures
+    let captures = re.captures(line);
+    if captures.is_some() {
+        Ok(captures.unwrap())
+    } else {
+        Err("no match")
+    }
 }
