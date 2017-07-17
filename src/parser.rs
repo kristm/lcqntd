@@ -10,10 +10,21 @@ pub fn parse_line(line: &str) -> Result<Captures, &str> {
     }
 }
 
-// pub fn convert_to_seconds(time: &str) -> u32 {
-//     let re = Regex::new(r"^(?P<hour>\d+)\:(?P<minute>\d+)\:(?P<sec>\d+)\.(?P<endf>\d+)$")
-//     let captures = re.captures(time);
-// }
+pub fn convert_to_seconds(time: &str) -> Result<String, &str> {
+    let re = Regex::new(r"^\d+:(?P<minute>\d+):(?P<sec>\d+)\.(?P<endf>\d+)$").unwrap();
+    let captures = re.captures(time);
+    let mut str_seconds = String::from("0:00:00.00");
+    match captures {
+        None => Err("no match"),
+        _ => {
+            let caps = captures.unwrap();
+            let (minute, sec, endf) = (&caps["minute"], &caps["sec"], &caps["endf"]);
+            str_seconds = format!("0:{}:{}.{}", minute, sec, endf);
+            println!(">> {} ", str_seconds);
+            Ok(str_seconds)
+        }
+    }
+}
 
 pub fn convert_msec(second: i32) -> i32 {
     ((second as f32) / 3.92) as i32
