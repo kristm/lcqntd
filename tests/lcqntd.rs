@@ -60,3 +60,24 @@ fn it_converts_to_milliseconds() {
 fn it_converts_to_seconds() {
     assert_eq!(convert_to_seconds("0:00:28.0").unwrap(), "672000");
 }
+
+#[test]
+fn it_converts_to_fcpxml_seconds_pad() {
+    assert_eq!(fcpxml_pad("0:00:28.0", 1009646), -337646);
+}
+
+#[test]
+fn it_converts_to_fcpxml_time() {
+    assert_eq!(convert_to_fcpxml_time("0:01:08.42"), "1642080/24000s");
+}
+
+#[test]
+fn it_computes_fcpxml_duration() {
+    assert_eq!(fcpxml_duration(672000, 885360), "960000/120000s");
+}
+
+#[test]
+fn it_strips_format_marks() {
+    let formatted_line:String = String::from("Si, una \"{\\i1}cita{\\i0}.\"");
+    assert_eq!(strip_format(&formatted_line), "Si, una \"cita.\"");
+}

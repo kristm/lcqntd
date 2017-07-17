@@ -26,6 +26,24 @@ pub fn convert_to_seconds(time: &str) -> Result<String, &str> {
     }
 }
 
+pub fn convert_to_fcpxml_time(time: &str) -> String {
+    [&convert_to_seconds(time).unwrap(), "/24000s"].join("")
+}
+
+pub fn fcpxml_duration(start_time: u32, end_time: u32) -> String {
+    format!("{}/120000s", (((end_time - start_time) / 24000) * 120000))
+}
+
+// pad for fcpxml timeline position
+pub fn fcpxml_pad(time: &str, fcpxml_pad:i32) -> i32 {
+    (convert_to_seconds(time).unwrap().parse::<i32>().unwrap() - fcpxml_pad)
+}
+
 pub fn convert_msec(second: i32) -> i32 {
     ((second as f32) / 3.92) as i32
+}
+
+pub fn strip_format(line: &str) -> String {
+    let re = Regex::new(r"\{[^}]*\}").unwrap();
+    re.replace_all(line, "").to_string()
 }
