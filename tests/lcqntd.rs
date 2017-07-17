@@ -58,6 +58,5 @@ fn it_converts_to_milliseconds() {
 
 #[test]
 fn it_converts_to_seconds() {
-    println!(">>{:?}<<", convert_to_seconds("0:00:28.0"));
     assert_eq!(convert_to_seconds("0:00:28.0").unwrap(), "672000");
 }
