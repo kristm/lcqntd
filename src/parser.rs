@@ -9,3 +9,13 @@ pub fn parse_line(line: &str) -> Result<Captures, &str> {
         _ => Ok(captures.unwrap())
     }
 }
+
+// pub fn convert_to_seconds(time: &str) -> u32 {
+//     let re = Regex::new(r"^(?P<hour>\d+)\:(?P<minute>\d+)\:(?P<sec>\d+)\.(?P<endf>\d+)$")
+//     let captures = re.captures(time);
+// }
+
+pub fn convert_msec(second: i32) -> i32 {
+    let msec = ((second as f32) / 3.92) as i32;
+    msec
+}

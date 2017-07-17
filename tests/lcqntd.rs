@@ -1,6 +1,7 @@
 extern crate lcqntd;
 
 use lcqntd::parser::parse_line;
+use lcqntd::parser::convert_msec;
 
 static SIMPLE_LINE: &'static str = "Dialogue: 0,0:11:26.40,0:11:27.64,Default,,0,0,0,,Don't you hang the phone";
 static VERBOSE_LINE: &'static str = "Dialogue: 0,0:00:28.00,0:00:36.89,Default,,0,0,0,,{\\move(427,470,427,470,28,-14)}Hello Good Afternoon, Is Happy Around?";
@@ -49,4 +50,9 @@ fn it_matches_nothing_if_has_no_format_instructions() {
 fn it_returns_error_for_invalid_input() {
     assert_eq!(parse_line(INVALID_LINE).err(), Some("no match"));
     assert!(parse_line(INVALID_LINE).is_err());
+}
+
+#[test]
+fn it_converts_to_milliseconds() {
+    assert_eq!(convert_msec(40), 10);
 }
