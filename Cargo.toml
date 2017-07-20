@@ -3,5 +3,9 @@ name = "lcqntd"
 version = "0.1.0"
 authors = ["Krist Menina <krist@quipper.com>"]
 
+[[bin]]
+name = "lcqntd_bin"
+path = "src/main.rs"
+
 [dependencies]
 regex = "0.2"
