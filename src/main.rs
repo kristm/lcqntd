@@ -15,27 +15,20 @@ fn main() {
     if let Some(arg1) = env::args().nth(1) {
         // Check if file is valid
         let file = File::open(&arg1).expect("couldn't open file");
+        let mut contents = String::new();
 
+        // output file
         let re = Regex::new(r"(.*)\.[a-zA-Z]*$").unwrap();
-        let output: String = re.replace(&arg1, "$1.fcpxml").to_string();
-        let mut writer = BufWriter::new(io::stdout());
+        let target_file: String = re.replace(&arg1, "$1.fcpxml").to_string();
+        let output = File::create(target_file).expect("unable to create file");
+        let mut output = BufWriter::new(output);
 
         let mut buf_reader = BufReader::new(&file);
         for line in buf_reader.lines() {
             let l = line.unwrap();
-            println!("{}", l);
+            contents.push_str(&format!("{}\n", l)); // return newline
         }
-        //let mut contents = String::new();
-        //buf_reader.read_to_string(&mut contents);
-        // let re = Regex::new(r"(.*)\.[a-zA-Z]*$").unwrap();
-        // let output: String = re.replace(&arg1, "$1.fcpxml").to_string();
-        // println!("write to {} ", output);
+
+        output.write_all(contents.as_bytes()).expect("Failed to write data");
     }
-    // try {
-    //     let mut file = File::open(arg1)?;
-    //     let mut buf_reader = BufReader::new(file);
-    //     let mut contents = String::new();
-    // }.or_else(|e|
-    //     println!("{}", e)
-    // )
 }
