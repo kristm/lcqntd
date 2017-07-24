@@ -1,11 +1,14 @@
 extern crate lcqntd;
+extern crate regex;
 
 use lcqntd::parser::*;
 use std::env;
+use regex::Regex;
 
 fn main() {
-    let formatted_line:String = String::from("Si, una \"{\\i1}cita{\\i0}.\"");
     if let Some(arg1) = env::args().nth(1) {
-        println!("say whut {} : {}", strip_format(&formatted_line), arg1);
+        let re = Regex::new(r"(.*)\.[a-zA-Z]*$").unwrap();
+        let output: String = re.replace(&arg1, "$1.fcpxml").to_string();
+        println!("write to {} ", output);
     }
 }
