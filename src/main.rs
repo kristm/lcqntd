@@ -14,11 +14,7 @@ use regex::Regex;
 fn main() {
     if let Some(arg1) = env::args().nth(1) {
         // Check if file is valid
-        let file = match File::open(&arg1) {
-            Err(why) => panic!("couldn't open {}: {}", arg1, why.description()),
-            Ok(file) => file,
-        };
-
+        let file = File::open(&arg1).expect("couldn't open file");
 
         let re = Regex::new(r"(.*)\.[a-zA-Z]*$").unwrap();
         let output: String = re.replace(&arg1, "$1.fcpxml").to_string();
