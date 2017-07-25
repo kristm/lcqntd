@@ -30,6 +30,16 @@ pub fn convert_to_fcpxml_time(time: &str) -> String {
     [&convert_to_seconds(time).unwrap(), "/24000s"].join("")
 }
 
+pub fn convert_fcpxml(matches: Result<Captures, &str>) -> String {
+    let results = &matches.unwrap();
+    let mut i = results.iter();
+    let full_match = i.next();
+    let start_time = i.next();
+    let end_time = i.next();
+    format!("meow {:?}, {:?}", start_time.unwrap(), end_time.unwrap())
+    //format!("meow")
+}
+
 pub fn fcpxml_duration(start_time: u32, end_time: u32) -> String {
     format!("{}/120000s", (((end_time - start_time) / 24000) * 120000))
 }
