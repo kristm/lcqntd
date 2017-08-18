@@ -36,7 +36,9 @@ pub fn convert_fcpxml(matches: Result<Captures, &str>) -> String {
     let full_match = i.next();
     let start_time = i.next();
     let end_time = i.next();
-    format!("meow {:?}, {:?}", start_time.unwrap(), end_time.unwrap())
+    
+    //format!("meow {:}, {:}", start_time.unwrap(), end_time.unwrap())
+    format!("meow {:?}", start_time.unwrap())
     //format!("meow")
 }
 
